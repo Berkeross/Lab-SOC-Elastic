@@ -67,7 +67,16 @@ Cuando se termine de configurar no va a adar una direccion web que utilisando el
 ### <ins>Windows Server</ins>
 Al colocar la ISO de Windows Server esta se configura de manera automatica, para evitar esto destildaremos la opcion <ins>Skip Unattended Installation</ins> para poder configurarlo manualmente, colocamos las especificaciones mencionadas en "requisitos del sistema".<br/>
 Antes de iniciar la maquina hay que ir a la configuracion y en la opcion de network elegiremos en Adapter1 la opcion de "**Internal Network**"<br/>
-Al iniciar la instalacion dejaremos el lenguaje del sistema en ingles, luego elegiremos la opcion "Windows Server 2022 Datacenter Evolution (Desktop Edition)" y para finalizar elegiremos la opcion custom install y elegiremos el drive0 para que finalice la instalacion.
+Al iniciar la instalacion dejaremos el lenguaje del sistema en ingles, luego elegiremos la opcion "Windows Server 2022 Datacenter Evolution (Desktop Edition)" y para finalizar elegiremos la opcion custom install y elegiremos el drive0 para que finalice la instalacion. Antes de reiniciarse te pedira una contraseña para establecer el administrador la cual es a gusto propio.<br/>
 <br/>
-
+Ya con la instalacion finalizada hay que logearse con la cuenta de administrator, ya en el inicio nos dirigimos a:
+* network Conections
+  * Click derecho a Properties
+    * doble click a Internet Protocol V4<br/>
+    
+Aca configuramos la direccion IP manualmente con con alguna IP dentro del rango DHCP, colocamos una mascara de /24, la gateway va a ser la ip de la red LAN y  el servidor DNS va a ser la misma que como direccion IP, tambien como DNS secundaria se puede poner alguna de las bien conocidas como google:8.8.8.8 o 4.4.8.8.<br/>
+<br/>
+Para probar que la coneccion es estable se puede ingresar al servicio interno PFsense que te da al finalizar la configuracion (en el ejemplo seria "http://192.168.1.1/") si esta entra quiere decir que la coneccion esta establecida y que la red LAN funciona correctamente.<br/>
+### <ins>Windows 10</ins>
+ 
 
