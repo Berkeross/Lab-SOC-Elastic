@@ -62,7 +62,9 @@ Cuando se termine de configurar hay que ir a la opcion 2 donde:<br/>
 * El rango IP para el DHCP empesaria (utilizando el ejemplo anterior) con 192.168.1.2 a 192.168.1.10, luego damos enter y esperamos a que se guarden los cambios.
 <br/>
 Cuando se termine de configurar no va a adar una direccion web que utilisando el ejemplo anterior quedaria "http://192.168.1.1/" y con eso ya estaria terminada la configuracion de PFsense.
-<br/>
+
+> [!IMPORTANT]
+> para logearse en la pagina de PFsense utilice Login: Admin y Password: pfsense.
 
 ### <ins>Windows Server</ins>
 Al colocar la ISO de Windows Server esta se configura de manera automatica, para evitar esto destildaremos la opcion <ins>Skip Unattended Installation</ins> para poder configurarlo manualmente, colocamos las especificaciones mencionadas en "requisitos del sistema".<br/>
