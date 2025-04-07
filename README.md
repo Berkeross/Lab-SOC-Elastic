@@ -48,6 +48,7 @@ Para que PFsense detecte cual es cada red se asignan manualmente de esta manera:
 * En la opcion de VLANs damos simplemente enter
 * Cuando pida identificar la red WAN hay que elegir la opcion que este configurado en Vbox como Adapter1 
 * Cuando pida identificar la red LAN hay que elegir la opcion que este configurada en Vbox como Local Network que en este caso seria Adapter2
+</br>
 > [!NOTE]
 > Teniendo en cuenta como identifica las redes PFsense se puede definir que Adapter1=em0 - Adapter2=em1 - Adapter3=em2 - Adapter4=em3. Siempre teniendo en cuenta que estamos utilizando Virtual Box. 
 <br/>
@@ -61,7 +62,8 @@ Cuando se termine de configurar hay que ir a la opcion 2 donde:<br/>
 * Y cuando se solicite elegir si queremos DHCP para la red LAN damos "Y"
 * El rango IP para el DHCP empesaria (utilizando el ejemplo anterior) con 192.168.1.2 a 192.168.1.10, luego damos enter y esperamos a que se guarden los cambios.
 <br/>
-Cuando se termine de configurar no va a adar una direccion web que utilisando el ejemplo anterior quedaria "http://192.168.1.1/" y con eso ya estaria terminada la configuracion de PFsense.
+Cuando se termine de configurar no va a adar una direccion web que utilisando el ejemplo anterior quedaria "http://192.168.1.1/" y con eso ya estaria terminada la configuracion de PFsense.</br>
+</br>
 
 > [!IMPORTANT]
 > para logearse en la pagina de PFsense utilice Login: Admin y Password: pfsense.
