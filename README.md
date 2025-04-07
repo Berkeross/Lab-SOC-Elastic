@@ -136,4 +136,21 @@ SIgue la instalacion y al ingresar al desktop configura la red. La misma se conf
 Aqui configure la direccion IP manualmente con con alguna IP dentro del rango DHCP diferente a la que le dio a Win-Server y Win10, coloque una mascara de /24, la gateway va a ser la ip de la red LAN y el servidor DNS va a ser la misma direccion IP que tiene Win-Server.<br/>
 Para probar que la coneccion es estable se puede ingresar al servicio interno PFsense que te da al finalizar la configuracion (en el ejemplo seria "http://192.168.1.1/") si puede acceder quiere decir que la coneccion esta establecida y que la red LAN funciona correctamente.<br/>
 <br/>
+
+
 Para INstalar **ElasticSIEM** se requiere de 3 sistemas lso cuales serias java, ekastic y kibana respectivamente.
+Instalamos Primero Java con el comando:
+
+	sudo apt update && sudo apt upgrade -y
+	sudo apt install -y openjdk-17-jdk
+ 
+Despues descargamos e instalamos elastic con el comando:
+
+	wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-8.9.0-amd64.deb
+	sudo dpkg -i elasticsearch-8.9.0-amd64.deb
+
+Despues descarmamos e instalamos Kibana con el comando:
+
+	wget https://artifacts.elastic.co/downloads/kibana/kibana-8.9.0-amd64.deb
+	sudo dpkg -i kibana-8.9.0-amd64.deb
+
