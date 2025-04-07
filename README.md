@@ -137,7 +137,7 @@ Aqui configure la direccion IP manualmente con con alguna IP dentro del rango DH
 Para probar que la coneccion es estable se puede ingresar al servicio interno PFsense que te da al finalizar la configuracion (en el ejemplo seria "http://192.168.1.1/") si puede acceder quiere decir que la coneccion esta establecida y que la red LAN funciona correctamente.<br/>
 <br/>
 
-
+### ElasticSIEM
 Para INstalar **ElasticSIEM** se requiere de 3 sistemas lso cuales serias java, ekastic y kibana respectivamente. Estos se instalan en la terminal de linux con con los siguientes comandos.
 Instalamos Primero Java con el comando:
 
@@ -154,4 +154,31 @@ Despues descarmamos e instalamos Kibana con el comando:
 	wget https://artifacts.elastic.co/downloads/kibana/kibana-8.9.0-amd64.deb
 	sudo dpkg -i kibana-8.9.0-amd64.deb
 
-Despues de instalar los 3 programas hay que configurarlos con los archivos(aca sigo mañana colocando los archivos que anda a saber como se hace)
+Y habilitamos amobos sistemas, primero elastic:
+
+	sudo systemctl enable elasticsearch
+	sudo systemctl start elasticsearch
+
+ Y para habilitar Kibana utilizamos los mismos comandos unicamente remplazando "elasticsearch" por "kibana".<br/>
+ 
+> [!TIP]
+> Para verificar si el prigrama corre correctamente se puede utilizar: 	"sudo systemctl status elasticsearch" o "sudo systemctl status kibana"
+<br/>
+
+Despues de instalar los 3 programas hay que <ins>configurarlos</ins>. estos se encuenctran en la ruta "/etc/elasticsearch/elasticsearch.yml" "/etc/kibana/kibana.yml"
+se pueden editar utilizando el comando nano:
+
+	sudo nano /etc/elasticsearch/elasticsearch.yml
+				
+	sudo nano /etc/kibana/kibana.yml
+
+Cada uno se edita por separado y 
+
+
+
+
+
+
+
+
+
