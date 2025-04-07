@@ -138,7 +138,7 @@ Para probar que la coneccion es estable se puede ingresar al servicio interno PF
 <br/>
 
 
-Para INstalar **ElasticSIEM** se requiere de 3 sistemas lso cuales serias java, ekastic y kibana respectivamente.
+Para INstalar **ElasticSIEM** se requiere de 3 sistemas lso cuales serias java, ekastic y kibana respectivamente. Estos se instalan en la terminal de linux con con los siguientes comandos.
 Instalamos Primero Java con el comando:
 
 	sudo apt update && sudo apt upgrade -y
@@ -154,3 +154,4 @@ Despues descarmamos e instalamos Kibana con el comando:
 	wget https://artifacts.elastic.co/downloads/kibana/kibana-8.9.0-amd64.deb
 	sudo dpkg -i kibana-8.9.0-amd64.deb
 
+Despues de instalar los 3 programas hay que configurarlos con los archivos(aca sigo mañana colocando los archivos que anda a saber como se hace)
