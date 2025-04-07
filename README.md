@@ -77,6 +77,30 @@ Ya con la instalacion finalizada hay que logearse con la cuenta de administrator
 Aca configuramos la direccion IP manualmente con con alguna IP dentro del rango DHCP, colocamos una mascara de /24, la gateway va a ser la ip de la red LAN y el servidor DNS va a ser la misma que como direccion IP, tambien como DNS secundaria se puede poner alguna de las bien conocidas como google:8.8.8.8 o 4.4.8.8.<br/>
 <br/>
 Para probar que la coneccion es estable se puede ingresar al servicio interno PFsense que te da al finalizar la configuracion (en el ejemplo seria "http://192.168.1.1/") si esta entra quiere decir que la coneccion esta establecida y que la red LAN funciona correctamente.<br/>
+<br/>
+> [!TIP]
+> para mas comodidad a la hora de indentificar las maquinas, se puede cambiar el nombre dirigendote al buscador: About your PC -> Rename This PC y cambiarlo a por ejemplo (WIN-AD), esto nos va a servir mas adelante.
+
+Una vez conectado hay que crear un Servidor dedicado de **Active Directory** para esto vamos al $Server Manager$ y nos dirigimos a:
+* Add Roles and Features.
+  * Next tres veces seguidas.
+    * Buscamos y tildamos "Active Directory Domain Service".
+      * Add Features.
+        * Siguiente tres veces mas.
+          * Install.
+<br/>
+Esperamos a que se termine de intalar y "cerrar". Luego seleccionamos el vanderin que se encuentra en la parte superior izquierda y dirigirnos a la opcion de "Promote this server to a domain controller", Los siguentes pasos son:<br/>
+<br/>
+
+* Selecciona "Add New Forest"
+  * En "Root Domain Name" coloca un nombre de dominio como "soc.lab" o "prueba.local" y luego al boton "next".
+    * elegimos una contraseña y la colocamos, luego repetimos en "Confirm Password" y le damos a Next.
+      * Dejar la parte DNS por defecto y Next.
+        * El NetBIOS lo escribimos en fisico como en un papel par recordarlo y Next.
+          * Las siguientes dos opciones las dejamos por defecto y Next.
+            * Le damos a instalar y reiniciamos cuando se le solicite.
+<br/>
+Una vez reiniciado el Active Directory quedara activo.
 
 ### <ins>Windows 10</ins>
 Luego de probar el funcionamiento de la Red LAN en Windows Server, realizaremos el mismo proceso de instalacion con Windows 10. Antes de iniciar la maquina hay que ir a la configuracion y en la opcion de network elegiremos en Adapter1 la opcion de "**Internal Network**".<br/>
@@ -86,8 +110,16 @@ Ya con la instalacion finalizada hay que logearse, ya en el inicio nos dirigimos
 * network Conections
   * Click derecho a Properties
     * doble click a Internet Protocol V4<br/>
+
 Aca configuramos la direccion IP manualmente con con alguna IP dentro del rango DHCP diferente a la que le dimos a Win-Server, colocamos una mascara de /24, la gateway va a ser la ip de la red LAN y el servidor DNS va a ser la misma direccion IP que tiene Win-Server.<br/>
-<br/>
 Para probar que la coneccion es estable se puede ingresar al servicio interno PFsense que te da al finalizar la configuracion (en el ejemplo seria "http://192.168.1.1/") si esta entra quiere decir que la coneccion esta establecida y que la red LAN funciona correctamente.<br/>
+<br/>
+Una vez conectado a la red nos vamos a dirigir a:<br/>
+
+* Settings.
+  * About your PC.
+
+cambiaremos el nombre a uno mas mas facil de recordar y reinicie la PC. Una vez reiniciado nos dirigimos al mismo lugar y busca la opcion "Advanced System Settings", allí elegimos la opcion de cambiar nombre de dominio, y en la opcion "Member of Domain:" escribimos el "**NetBIOS**" que guarmamos anteriormente, una vez colocado le solicitara un nombre y contraseña de ese dominio y va a utilizar la cuenta de administrador que uso para logearse a Windows Server. Una vez dentro del Dominio le da a "ok" y reinicie cuando se le solicite.
+De esta forma estara dentro del dominio y conectado a Windows server.
 
 ### <ins>Linux/Ubuntu</ins>
