@@ -3,7 +3,7 @@
 
 # =================== System: Kibana Server ===================
 # Kibana is served by a back end server. This setting specifies the port to use.
-#server.port: 5601
+server.port: 5601
 
 # Specifies the address to which the Kibana server will bind. IP addresses and host names are both valid values.
 # The default is 'localhost', which usually means remote machines will not be able to connect.
@@ -46,9 +46,9 @@ server.host: "0.0.0.0"
 # the username and password that the Kibana server uses to perform maintenance on the Kibana
 # index at startup. Your Kibana users still need to authenticate with Elasticsearch, which
 # is proxied through the Kibana server.
-#elasticsearch.username: "kibana_system"
-#elasticsearch.password: "WeaN03uteHCkIwoVUr5="
-#xpack.security.enabled: true
+elasticsearch.username: "kibana_system"
+elasticsearch.password: "WeaN03uteHCkIwoVUr5="
+xpack.security.enabled: true
 
 # Kibana can also authenticate to Elasticsearch via "service account tokens".
 # Service account tokens are Bearer style tokens that replace the traditional username/password based configuration.
