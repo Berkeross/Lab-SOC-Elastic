@@ -66,7 +66,7 @@ Cuando se termine de configurar no va a adar una direccion web que utilisando el
 
 ### <ins>Windows Server</ins>
 Al colocar la ISO de Windows Server esta se configura de manera automatica, para evitar esto destildaremos la opcion <ins>Skip Unattended Installation</ins> para poder configurarlo manualmente, colocamos las especificaciones mencionadas en "requisitos del sistema".<br/>
-Antes de iniciar la maquina hay que ir a la configuracion y en la opcion de network elegiremos en Adapter1 la opcion de "**Internal Network**"<br/>
+Antes de iniciar la maquina hay que ir a la configuracion y en la opcion de network elegiremos en Adapter1 la opcion de "**Internal Network**".<br/>
 Al iniciar la instalacion dejaremos el lenguaje del sistema en ingles, luego elegiremos la opcion "Windows Server 2022 Datacenter Evolution (Desktop Edition)" y para finalizar elegiremos la opcion custom install y elegiremos el drive0 para que finalice la instalacion. Antes de reiniciarse te pedira una contraseña para establecer el administrador la cual es a gusto propio.<br/>
 <br/>
 Ya con la instalacion finalizada hay que logearse con la cuenta de administrator, ya en el inicio dejamos que se inicie el $Server Manager$ y nos dirigimos a:
@@ -74,7 +74,7 @@ Ya con la instalacion finalizada hay que logearse con la cuenta de administrator
   * Click derecho a Properties
     * doble click a Internet Protocol V4<br/>
     
-Aca configuramos la direccion IP manualmente con con alguna IP dentro del rango DHCP, colocamos una mascara de /24, la gateway va a ser la ip de la red LAN y el servidor DNS va a ser la misma que como direccion IP, tambien como DNS secundaria se puede poner alguna de las bien conocidas como google:8.8.8.8 o 4.4.8.8.<br/>
+Aca configure la direccion IP manualmente con con alguna IP dentro del rango DHCP, coloque una mascara de /24, la gateway va a ser la ip de la red LAN y el servidor DNS va a ser la misma quecoloque como direccion IP, tambien como DNS secundaria se puede poner alguna de las bien conocidas como google:8.8.8.8 o 4.4.8.8.<br/>
 <br/>
 Para probar que la coneccion es estable se puede ingresar al servicio interno PFsense que te da al finalizar la configuracion (en el ejemplo seria "http://192.168.1.1/") si esta entra quiere decir que la coneccion esta establecida y que la red LAN funciona correctamente.<br/>
 <br/>
@@ -104,22 +104,33 @@ Una vez reiniciado el Active Directory quedara activo.
 
 ### <ins>Windows 10</ins>
 Luego de probar el funcionamiento de la Red LAN en Windows Server, realizaremos el mismo proceso de instalacion con Windows 10. Antes de iniciar la maquina hay que ir a la configuracion y en la opcion de network elegiremos en Adapter1 la opcion de "**Internal Network**".<br/>
-Y al momento de instalar eligiremos la opcion de windows sin KEY y la opcion de "Win-10 pro".<br/>
+Al momento de instalar dejaremos el lenguaje del sistema en ingles, la opcion de windows sin KEY y la opcion de "Win-10 pro".<br/>
 <br/>
 Ya con la instalacion finalizada hay que logearse, ya en el inicio nos dirigimos a:
 * network Conections
   * Click derecho a Properties
     * doble click a Internet Protocol V4<br/>
 
-Aca configuramos la direccion IP manualmente con con alguna IP dentro del rango DHCP diferente a la que le dimos a Win-Server, colocamos una mascara de /24, la gateway va a ser la ip de la red LAN y el servidor DNS va a ser la misma direccion IP que tiene Win-Server.<br/>
-Para probar que la coneccion es estable se puede ingresar al servicio interno PFsense que te da al finalizar la configuracion (en el ejemplo seria "http://192.168.1.1/") si esta entra quiere decir que la coneccion esta establecida y que la red LAN funciona correctamente.<br/>
+Aca configure la direccion IP manualmente con con alguna IP dentro del rango DHCP diferente a la que le dio a Win-Server, coloque una mascara de /24, la gateway va a ser la ip de la red LAN y el servidor DNS va a ser la misma direccion IP que tiene Win-Server.<br/>
+Para probar que la coneccion es estable se puede ingresar al servicio interno PFsense que te da al finalizar la configuracion (en el ejemplo seria "http://192.168.1.1/") si puede acceder quiere decir que la coneccion esta establecida y que la red LAN funciona correctamente.<br/>
 <br/>
 Una vez conectado a la red nos vamos a dirigir a:<br/>
 
 * Settings.
   * About your PC.
 
-cambiaremos el nombre a uno mas mas facil de recordar y reinicie la PC. Una vez reiniciado nos dirigimos al mismo lugar y busca la opcion "Advanced System Settings", allí elegimos la opcion de cambiar nombre de dominio, y en la opcion "Member of Domain:" escribimos el "**NetBIOS**" que guarmamos anteriormente, una vez colocado le solicitara un nombre y contraseña de ese dominio y va a utilizar la cuenta de administrador que uso para logearse a Windows Server. Una vez dentro del Dominio le da a "ok" y reinicie cuando se le solicite.
+cambiaremos el nombre a uno mas mas facil de recordar y <ins>reinicie la PC</ins>. Una vez reiniciado nos dirigimos al mismo lugar y busca la opcion "Advanced System Settings", allí elegimos la opcion de cambiar nombre de dominio, y en la opcion "Member of Domain:" escribimos el "**NetBIOS**" que guarmamos anteriormente, una vez colocado le solicitara un nombre y contraseña de ese dominio y va a utilizar la cuenta de administrador que uso para logearse a Windows Server. Una vez dentro del Dominio le da a "ok" y reinicie cuando se le solicite.
 De esta forma estara dentro del dominio y conectado a Windows server.
 
 ### <ins>Linux/Ubuntu</ins>
+Una vez active Directory (Windows Server) este conectado con la maquina win10 hay que crear la zona de monitoreo SIEM. Para esto crea la maquina virtual con la configuracion indicada en "Requisitos del Sistema". Antes de iniciar la maquina hay que ir a la configuracion y en la opcion de network elegiremos en Adapter1 la opcion de "**Internal Network**".<br/>
+SIgue la instalacion y al ingresar al desktop configura la red. La misma se configura en el boton en la parte superior izquierda dirigiendote a:<br/>
+
+* Wired Connected.
+  * Wired Settings.
+    * Dirigete a la "tuerca"
+      * Dirigete a la pestaña "IPv4"
+<br/>
+Aqui configure la direccion IP manualmente con con alguna IP dentro del rango DHCP diferente a la que le dio a Win-Server y Win10, coloque una mascara de /24, la gateway va a ser la ip de la red LAN y el servidor DNS va a ser la misma direccion IP que tiene Win-Server.<br/>
+Para probar que la coneccion es estable se puede ingresar al servicio interno PFsense que te da al finalizar la configuracion (en el ejemplo seria "http://192.168.1.1/") si puede acceder quiere decir que la coneccion esta establecida y que la red LAN funciona correctamente.<br/>
+<br/>
