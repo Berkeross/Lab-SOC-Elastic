@@ -203,5 +203,8 @@ Para configurarlo utiliza el comando "[sudo nano /etc/kibana/kibana.yml]" y busc
     	#elasticsearch.username: "kibana_system"
 	#elasticsearch.password: "pass"
 
+ 	sudo /usr/share/elasticsearch/bin/elasticsearch-reset-password -u kibana_system
+
+
 
 
