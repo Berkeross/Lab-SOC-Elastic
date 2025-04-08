@@ -169,41 +169,47 @@ Despues de instalar Elastic hay que <ins>configurarlo</ins>. este se encuenctran
  	#network.host: "192.168.0.1"
   	#http.port: 9200
    	#xpack.security.http.ssl:
-	  enabled: false
-    	#xpack.security.transport.ssl:
-	  enabled: false
+	  enabled: true
+    #xpack.security.transport.ssl:
+	  enabled: true
 
-Estas lineas las vas a configuar como dice en el archivo de [Configuración Elastic](Documentación/Configuración-Elastic.txt).<br/>
+Estas lineas las vas a configuar copiando estas lineas indicadas del archivo de [Configuración Elastic](Documentación/Configuración-Elastic.txt).<br/>
 <br/>
 Una vez configruado, se utiliza el comando "[sudo systemctl restart elasticsearch]" para resetear el preograma, el cual tarda uno algunos segundos.
 Una vez reiniciado el prigrama, en el buscador predetermiinado del sistema colocamos "</ins>http://localhost:9200</ins>". al ingresar nos solicitara usuario y contraseña, el cual se consigue con el siguiente comando.
 
  	sudo /usr/share/elasticsearch/bin/elasticsearch-reset-password -u elastic
 
-Al utilizarlo en la terminal te dejara un lanea que indica "New value: TU_CONTRASEÑA". Ahora al recarlar la url en los espacios de texto se debe llenar con:<br/>
+Al utilizarlo en la terminal te dejara un lanea que indica "New value: TU_CONTRASEÑA_ELASTIC". Esta contraseña guardala en un archivo ".txt" en el escritorio, y al recarlar la url en los espacios de texto se debe llenar con:<br/>
 User: elastic<br/>
-Password : TU_CONTRASEÑA<br/>
+Password : TU_CONTRASEÑA_ELASTIC<br/>
 <br/>
-una vez igresado te mostrara tu nombre de sistema y algunos datos que indican que esta en funcionamiento. Una vez terminada la instalacion de elastic descarmamos e instalamos Kibana con el comando:
+La pagina te mostrara tu nombre de sistema y algunos datos que indican que esta en funcionamiento.<br/>
+Una vez terminada la instalacion de elastic descarmamos e instalamos Kibana con el comando:
 
 	wget https://artifacts.elastic.co/downloads/kibana/kibana-8.9.0-amd64.deb
 	sudo dpkg -i kibana-8.9.0-amd64.deb
 
-Una vez descargado activamos el sistema con:
+Luego de descargarlo se activa el programa con:
 
 	sudo systemctl enable kibana
 	sudo systemctl start kibana
 
-Para configurarlo utiliza el comando "[sudo nano /etc/kibana/kibana.yml]" y buscas las lineas:
+Una vez activo el programa se debe cambiar la contraseña de kibana para acceder a elastic. Para esto utilizamos el comando:
+
+	sudo /usr/share/elasticsearch/bin/elasticsearch-reset-password -u kibana_system
+ 
+Dejara un lanea que indica "New value: TU_CONTRASEÑA_KIBANA". esta contraseña tambien se debe guardar en el archivo .txt para usar mas adelante.<br/>
+Ya con la contraseña se pasa a configurar kibana utiliza el comando "[sudo nano /etc/kibana/kibana.yml]" y buscas las lineas:
 
 	#server.port: 5601
  	#server.host: ""
   	#server.publicBaseUrl:
    	#elasticsearch.hosts: ["http://localhost:9200"]
-    	#elasticsearch.username: "kibana_system"
+    #elasticsearch.username: "kibana_system"
 	#elasticsearch.password: "pass"
 
- 	sudo /usr/share/elasticsearch/bin/elasticsearch-reset-password -u kibana_system
+Estas se deben configurar copiando estas lineas indicadas del archivo de [Configuración Kibana](Documentación/Configuración-Kibana.txt).<br/>
 
 
 
