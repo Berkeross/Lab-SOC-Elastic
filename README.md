@@ -139,7 +139,7 @@ Aqui configure la direccion IP manualmente con con alguna IP dentro del rango DH
 Para probar que la coneccion es estable se puede ingresar al servicio interno PFsense que te da al finalizar la configuracion (en el ejemplo seria "http://192.168.1.1/") si puede acceder quiere decir que la coneccion esta establecida y que la red LAN funciona correctamente.<br/>
 <br/>
 
-### ElasticSIEM
+## ElasticSIEM
 Para INstalar **ElasticSIEM** se requiere de 3 sistemas lso cuales serias java, ekastic y kibana respectivamente. Estos se instalan en la terminal de linux con con los siguientes comandos.
 Instalamos Primero Java con el comando:
 
@@ -164,7 +164,7 @@ Despues de instalar Elastic hay que <ins>configurarlo</ins>. este se encuenctran
 
 	sudo nano /etc/elasticsearch/elasticsearch.yml
 
- Dentro del archivo de configuracion, busca las siguientes lineas:
+ Dentro del archivo de configuracion, busca las siguientes lineas a editar:
 
  	#network.host: "192.168.0.1"
   	#http.port: 9200
@@ -176,11 +176,11 @@ Despues de instalar Elastic hay que <ins>configurarlo</ins>. este se encuenctran
 Estas lineas las vas a configuar copiando estas lineas indicadas del archivo de [Configuración Elastic](Documentación/Configuración-Elastic.txt).<br/>
 <br/>
 Una vez configruado, se utiliza el comando "[sudo systemctl restart elasticsearch]" para resetear el preograma, el cual tarda uno algunos segundos.
-Una vez reiniciado el prigrama, en el buscador predetermiinado del sistema colocamos "</ins>http://localhost:9200</ins>". al ingresar nos solicitara usuario y contraseña, el cual se consigue con el siguiente comando.
+Una vez reiniciado el prigrama, en el buscador predetermiinado del sistema colocamos "<ins>http://localhost:9200</ins>". al ingresar nos solicitara usuario y contraseña, el cual se consigue con el siguiente comando.
 
  	sudo /usr/share/elasticsearch/bin/elasticsearch-reset-password -u elastic
 
-Al utilizarlo en la terminal te dejara un lanea que indica "New value: TU_CONTRASEÑA_ELASTIC". Esta contraseña guardala en un archivo ".txt" en el escritorio, y al recarlar la url en los espacios de texto se debe llenar con:<br/>
+Al utilizarlo en la terminal te dejara un lanea que indica "New value: TU_CONTRASEÑA_ELASTIC", esta sera la nueva contraseña para el usuario "elastic". Esta contraseña guardala en un archivo ".txt" en el escritorio, y al recarlar la url en los espacios de texto se debe llenar con:<br/>
 User: elastic<br/>
 Password : TU_CONTRASEÑA_ELASTIC<br/>
 <br/>
@@ -199,8 +199,8 @@ Una vez activo el programa se debe cambiar la contraseña de kibana para acceder
 
 	sudo /usr/share/elasticsearch/bin/elasticsearch-reset-password -u kibana_system
  
-Dejara un lanea que indica "New value: TU_CONTRASEÑA_KIBANA". esta contraseña tambien se debe guardar en el archivo .txt para usar mas adelante.<br/>
-Ya con la contraseña se pasa a configurar kibana utiliza el comando "[sudo nano /etc/kibana/kibana.yml]" y buscas las lineas:
+Dejara un lanea que indica "New value: TU_CONTRASEÑA_KIBANA", la cual es la contraseña para el usuario kibana_system. esta contraseña tambien se debe guardar en el archivo .txt para usar mas adelante.<br/>
+Ya con la contraseña se pasa a configurar kibana utiliza el comando "[sudo nano /etc/kibana/kibana.yml]" y buscas las lineas a editar:
 
 	#server.port: 5601
  	#server.host: ""
@@ -210,7 +210,66 @@ Ya con la contraseña se pasa a configurar kibana utiliza el comando "[sudo nano
 	#elasticsearch.password: "pass"
 
 Estas se deben configurar copiando estas lineas indicadas del archivo de [Configuración Kibana](Documentación/Configuración-Kibana.txt).<br/>
+Una vez configurado se rinician los dos programas:
 
+	sudo systemctl restart elasticsearch
+	sudo systemctl restart kibana
 
+Al finalizar los programas pueden tardar en inciarse aproximadamente 2 minutos, luego de ese tiempo tendras [http://localhost:9200] donde muestra que elastic esta activo y "[<ins>http://localhost:5601</ins>]" donde tendras el elastic de forma grafica. Luego de ingresar pulsas el boton que diga "i explorer for my own" y tendra el sistema en completo funcionamiento.
 
+## sysmon y winlogbeat
+Para poder enviar logs desde Win10 y Win-Server al sistema de elastic hay que conectar ambos sistemas utilizando <ins>Sysmon y Winlogbeat</ins>. Ambas configuraciones funcionan igual para los dos sistemas con lo cual habra que repetir el proceso por cada sistema.
 
+### <ins>Sysmon</ins>
+para este programa hay que descargar [https://docs.microsoft.com/en-us/sysinternals/downloads/sysmon], una vez descargado se extrae en la ruta [C:\Sysmon\]. Ya con la carpeta extraída, descargamos la configuracion siendo este el ultimo componente.<br/>
+> [!NOTE]
+> Este archivo se puede descargar por internet, y hay varias versiones hechas por la comunidad, mayormente se encuentran en GitHub.
+<br/>
+
+En esta guia se utiliza una configuracion descargada utilizando la terminal de Powershell como **Administrador** utilizando el comando.
+
+	Invoke-WebRequest -Uri "https://raw.githubusercontent.com/SwiftOnSecurity/sysmon-config/master/sysmonconfig-export.xml" -OutFile "C:\Sysmon\sysmonconfig.xml"
+
+Con la configuracion descargada se ejecuta el programa utilizando Powershell como administrador.
+
+	C:\Sysmon\Sysmon64.exe -accepteula -i C:\Sysmon\sysmonconfig.xml
+
+Para verificar que Sysmon este en funcionamiento se puede utilizar el siguiente comando, si este no muestra logs o da algun error signica que hubo un problema con la instalación: 
+	
+ 	Get-WinEvent -LogName "Microsoft-Windows-Sysmon/Operational" -MaxEvents 10 | Format-List
+
+Una vez instalado es neceasario enviar los logs que genere Sysmon a Elastic, esto se va a hacer con Winlogbeat el cual se encarga de conectar ambas maquinas virtuales (Win10 y Win_Server) a Elastic.
+
+### <ins>Winlogbeat</ins>
+Este programa es compatible con Elastic el cual se puede descargar desde su pagina en [https://www.elastic.co/downloads/beats/winlogbeat].
+Una vez descargado el archivo .zip se descomprime en la ruta [C:\Program Files\Winlogbeat\]. Dentro de la carpeta busca el archivo winlogbeat.yml y configuralo utilizando el bloc de notas, las lineas a editar o agregar son las siguientes.
+> [!IMPORTANT]
+> Dentro de Windows asi como en Linux tambien todas las lineas del archivo .yml que contengan <ins>"#"</ins> van a quedar como configuracion prdeterminada. a las lineas a editar se le deve quitar el #.
+<br/>
+
+ 	#winlogbeat.event_logs:
+	  - name: Application
+
+	  - name: System
+
+	  - name: Security
+	#host: "localhost:5601"
+ 	#hosts: ["localhost:9200"]
+  	#protocol: "http"
+   	#username: "elastic"
+  	#password: "changeme"
+  	#ssl.verification_mode:
+
+Una vez editado el archivo ejecutamos Powershell como administrador y para dirigirse a la carpeta donde esta winlogbeat usas:
+
+	cd 'C:\Program Files\Winlogbeat'
+
+Ya en el directorio ejecutas:
+
+	.\install-service-winlogbeat.ps1
+ 	Start-Service winlogbeat
+
+Luego de instalar podemos verificar de dos formas, una es entrando a Services y buscando el programa, y la otra opcion es ejecutar en pshell como admin. este comando: ".\winlogbeat.exe setup -e" el cual muestra los logs recogidos por el programa.
+
+### <ins>Coneccion con Elastic</ins>
+a
