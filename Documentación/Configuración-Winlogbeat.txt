@@ -149,7 +149,7 @@ processors:
 
 # Sets log level. The default log level is info.
 # Available log levels are: error, warning, info, debug
-#logging.level: *
+#logging.level: debug
 
 logging.to_files: true
 
