@@ -313,12 +313,64 @@ Atomic Red Team es un programa un poco mas compleja de instalar y ejecutar. Prie
 
 	Set-MpPreference -DisableRealtimeMonitoring $true
 
+ Despues para que Powershell pueda instalar las dependencias necesita el modulo ".yaml" el cual se instala con: 
+
+ 	Install-Module powershell-yaml -Force -Scope CurrentUser
+	Import-Module powershell-yaml
+
 Con el antivirus completamente desactivado se debe descargar dos carpetas la primera es [atomic-red-team-master](https://github.com/redcanaryco/atomic-red-team.git) y [invoke-atomicredteam-master](https://github.com/redcanaryco/invoke-atomicredteam.git), ambos se encuenctran en github descargando el archivo .zip.<br/>
 Antes de extraerlos se debe crear una carpeta con nombre "AtomicRedTeam" en la carpeta "C:\" (disco local). Estos archivos descargados se deben descomprimir en la carpeta AtomicRedTeam, alli deveria quedar:
-C:\AtomicRedTeam\
-    └── atomics\
-         ├── T1003\
-         ├── T1059\
-         └── ...
+	
+ 	C:\AtomicRedTeam\
+	    └── atomic-red-team-master\
+	    ├    └── atomic-red-team-master\
+	    ├    	├── .devcontainer\
+	    ├    	├── atomics\
+     	    ├		└── ...\	
+	    └── invoke-atomicredteam-master\
+	         	└── invoke-atomicredteam-master\
+	         		├── .git\
+	    			├── doker\
+	         		└── ...
  
-  
+Como se puede ver ambos archivos al extraerlos crean una carpeta del mismo nombre dentro de su propia carpeta con el contenido necesario. Para evitar problemas con los comandos que se deben ejecutar, se debe quitar la carpeta intermedia con nombre repetido para tener una ruta mas corta, ademas de mover la carpeta "\atomics" a la ruta "C:\AtomicRedTeam\", esto deveria quedar asi:
+
+  	C:\AtomicRedTeam\
+	    ├── atomic-red-team-master\
+     	    ├	 └── .devcontainer\
+	    ├	 └── ...
+	    ├── atomics\
+     	    ├	 └── indexes\
+	    ├	 └── ...
+	    └── invoke-atomicredteam-master\
+	         └── .git\
+	         └── ...
+
+Una vez las carpetas esten colocadas correctamentesse deve instalar, en este repositorio se explicara el paso a paso de esta version, en caso de encontrarte con un error nno dudes en consultar con la [Wiki](https://github.com/redcanaryco/invoke-atomicredteam/wiki) de AtomicRedTEam. Primero se debe ingresar a powershell como administrador y ejecutar:
+
+	powershell -exec bypass
+
+Luego de que se recargue powershell se deve ejecutar:
+
+	Install-Module -Name invoke-atomicredteam,powershell-yaml -Scope CurrentUser
+
+Finalizada la instalacion de modulo se debe verificar que se instalo correctamente con el codigo:
+
+	get-module
+
+ Si al ejecutarlo aparece "Invoke-AtomicRedTeam" en la lista quiere decir que el programa se instalo satisfactoriamente. para poder simular un ataque es necesario ingresar un codigo, este codigo es el que se usa para categorizar ataques en la organizacion ["MITRE ATT&CK"](https://attack.mitre.org/matrices/enterprise/).<br/>
+> [!NOTE]
+> el link que esta atado a MITRE ATT&CK lleva a un cuadro con todos lo ataques categorizados, si a estos le pasas el mause por encima veras un codifo como "T1548" o "T1016", estos son los codigos utilizados para lanzar ataques con Atomic Red Team.
+<br/>
+
+para inicia un ataque se debe utilizar el comando "Invoke-AtomicTest" seguido de un codigo de ataque. Tambien se le puede agregar tags al final de la linea como por ejemplo "-ShowDetailsBrief"  que muestra una lista de funciones del ataque en concreto o "-CheckPrereqs" el cual muestra una lista de rewuisitos para que se pueda ejecutar el ataque (mayormente siempre se cumplen los requisitos ya que son programas que vienen incluidos con windows).<br/>
+Para poder generar logs ejecuta algunos ataque los cuales tendrian que salir en ElasticSIEM, tambien mencionar que en caso de algun error en el proceso se puede verificar utilizando el [video de YT](https://www.youtube.com/watch?v=_xW3fAumh1c) que se utilizo para hacer la parte de Atomic en esta guia.
+
+## 
+
+ 
+
+
+
+
+ 
