@@ -272,7 +272,7 @@ Luego de instalar podemos verificar de dos formas, una es entrando a Services y 
 Cuando ambos sistemas operativos tengan instalado sysmon y winlogbeat se deven implementar en elasticSIEM.
 <br/>
 Dentro de ElasticSIEM dirigete a [ Menú lateral → Analytics → Discover ] y selecciona "<ins>Add Itegrations</ins>". luego de agregar esta ingregacion vas a ver en la pestaña <ins>discover</ins> sobre la parte superior izquierda una pestaña que muestra los **Data View**, en esa pestaña busca el recuadro de "<ins>Winlogbeat-*</ins>".<br/>
-$Winlogneat-*$ muestra los log de los sistemas Windows en una sola pestaña, en esta se ve una [$TimeLine$](Capturas/Captura-Logs-1.png) en la cual se va mostrando la cantidad de [alertas](Capturas/Captura-Logs-2.png) que muestra winlogbeat a lo largo del tiempo.<br/>
+$Winlogneat-*$ muestra los log de los sistemas Windows en una sola pestaña, en esta se ve una [TimeLine](Capturas/Captura-Logs-1.png) en la cual se va mostrando la cantidad de [alertas](Capturas/Captura-Logs-2.png) que muestra winlogbeat a lo largo del tiempo.<br/>
 Por otro lado dirigiendote a [ Menú lateral → Security → Alerts ] donde se encunetra la informacion de estas [alertas](Capturas/Captura-Alertas-1.png) en las cuales [filtra y categoriza](Capturas/Captura-Alertas-2.png) las mismas para una mejor deteccion.<br/>
 Contando con estas dos funciones mas otras que ya vienen integradas en el paquete ElasticSIEM es posible hacer pruebas de ataques simulados.
 
@@ -293,7 +293,7 @@ Luego de ingresar a la carpeta del malware, este se ejecuta con:
 Con esto aparecera un pequeño parrafo explicativo guia para ejecutarlo. Una vez ejecutado deja que la magia suceda (esto puede tomar varios minutos).<br/>
 Una vez terminado le proceso en ElasticSIEM en la pestaña de $Discover$ deverian haber ingresado varios log y eventos relacionados con la creacion de usuarios roles y eventos en Win-Server.
 
-### <ins>Atomic Red Team<ins>
+### <ins>Atomic Red Team</ins>
 Para realizar la descarga de ART ingrese al link de [Git](https://git-scm.com/download/win) [GitHub](https://github.com/redcanaryco/atomic-red-team) y descargue el .zip. Antes de extraerlo es necesario desdactivar $Windows Defender$ para que no bloquee los archivos ni los ataques, para esto se debe ejecutar el siguente comando utilizando powershell como administrador.
 
 	Set-MpPreference -DisableRealtimeMonitoring $true
@@ -301,9 +301,24 @@ Para realizar la descarga de ART ingrese al link de [Git](https://git-scm.com/do
 Una vez desactivado se debe extraer el archivo .zip manuelamente en [C:\AtomicRedTeam], al finalizar la extracción se debe cambir el nombre de la carpeta "Atomic-Red_team_master" a "AtomicRedTeam" para que los comandos funcionen correctamente.<br/>
 Luego con Powershell dirijase a la carpeta utilizando el comando [cd C:\AtomicRedTeam], alli ejecute el comando:
 
-	Install-Module -Name Invoke-AtomicRedTeam -Force
-	Import-Module Invoke-AtomicRedTeam
+ 	git clone --recurse-submodules https://github.com/redcanaryco/atomic-red-team.git C:\AtomicRedTeam
+	git clone https://github.com/redcanaryco/invoke-atomicredteam.git C:\Invoke-AtomicRedTeam
 
+	[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+ 	Install-packageProvider -Name NuGet
 
-	Invoke-AtomicTest T1059.001 -TestNumbers 1
+------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+Atomic Red Team es un programa un poco mas compleja de instalar y ejecutar. Priemro es necesario desactivar windows defender, para esto hay que dirigierse a [<ins> Menú del buscador → Settings → Update & Security → Windows Defender → Virus & threat Protection → Virus & threat Protection Settings → Manage Settings </ins>] En esta pestaña descativa todas las opciones. Una vez desactivado el ultimo paso es ejecutar el comando:
+
+	Set-MpPreference -DisableRealtimeMonitoring $true
+
+Con el antivirus completamente desactivado se debe descargar dos carpetas la primera es [atomic-red-team-master](https://github.com/redcanaryco/atomic-red-team.git) y [invoke-atomicredteam-master](https://github.com/redcanaryco/invoke-atomicredteam.git), ambos se encuenctran en github descargando el archivo .zip.<br/>
+Antes de extraerlos se debe crear una carpeta con nombre "AtomicRedTeam" en la carpeta "C:\" (disco local). Estos archivos descargados se deben descomprimir en la carpeta AtomicRedTeam, alli deveria quedar:
+C:\AtomicRedTeam\
+    └── atomics\
+         ├── T1003\
+         ├── T1059\
+         └── ...
+ 
+  
