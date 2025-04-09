@@ -294,21 +294,6 @@ Con esto aparecera un pequeño parrafo explicativo guia para ejecutarlo. Una vez
 Una vez terminado le proceso en ElasticSIEM en la pestaña de $Discover$ deverian haber ingresado varios log y eventos relacionados con la creacion de usuarios roles y eventos en Win-Server.
 
 ### <ins>Atomic Red Team</ins>
-Para realizar la descarga de ART ingrese al link de [Git](https://git-scm.com/download/win) [GitHub](https://github.com/redcanaryco/atomic-red-team) y descargue el .zip. Antes de extraerlo es necesario desdactivar $Windows Defender$ para que no bloquee los archivos ni los ataques, para esto se debe ejecutar el siguente comando utilizando powershell como administrador.
-
-	Set-MpPreference -DisableRealtimeMonitoring $true
-
-Una vez desactivado se debe extraer el archivo .zip manuelamente en [C:\AtomicRedTeam], al finalizar la extracción se debe cambir el nombre de la carpeta "Atomic-Red_team_master" a "AtomicRedTeam" para que los comandos funcionen correctamente.<br/>
-Luego con Powershell dirijase a la carpeta utilizando el comando [cd C:\AtomicRedTeam], alli ejecute el comando:
-
- 	git clone --recurse-submodules https://github.com/redcanaryco/atomic-red-team.git C:\AtomicRedTeam
-	git clone https://github.com/redcanaryco/invoke-atomicredteam.git C:\Invoke-AtomicRedTeam
-
-	[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
- 	Install-packageProvider -Name NuGet
-
-------------------------------------------------------------------------------------------------------------------------------------------------------------
-
 Atomic Red Team es un programa un poco mas compleja de instalar y ejecutar. Priemro es necesario desactivar windows defender, para esto hay que dirigierse a [<ins> Menú del buscador → Settings → Update & Security → Windows Defender → Virus & threat Protection → Virus & threat Protection Settings → Manage Settings </ins>] En esta pestaña descativa todas las opciones. Una vez desactivado el ultimo paso es ejecutar el comando:
 
 	Set-MpPreference -DisableRealtimeMonitoring $true
@@ -358,7 +343,7 @@ Finalizada la instalacion de modulo se debe verificar que se instalo correctamen
 
 	get-module
 
- Si al ejecutarlo aparece "Invoke-AtomicRedTeam" en la lista quiere decir que el programa se instalo satisfactoriamente. para poder simular un ataque es necesario ingresar un codigo, este codigo es el que se usa para categorizar ataques en la organizacion ["MITRE ATT&CK"](https://attack.mitre.org/matrices/enterprise/).<br/>
+ Si al ejecutarlo aparece "Invoke-AtomicRedTeam" en la lista de modulos quiere decir que el programa se instalo satisfactoriamente. Para poder simular un ataque es necesario ingresar un codigo, este codigo es el que se usa para categorizar ataques en la organizacion ["MITRE ATT&CK"](https://attack.mitre.org/matrices/enterprise/).<br/>
 > [!NOTE]
 > el link que esta atado a MITRE ATT&CK lleva a un cuadro con todos lo ataques categorizados, si a estos le pasas el mause por encima veras un codifo como "T1548" o "T1016", estos son los codigos utilizados para lanzar ataques con Atomic Red Team.
 <br/>
@@ -366,9 +351,14 @@ Finalizada la instalacion de modulo se debe verificar que se instalo correctamen
 para inicia un ataque se debe utilizar el comando "Invoke-AtomicTest" seguido de un codigo de ataque. Tambien se le puede agregar tags al final de la linea como por ejemplo "-ShowDetailsBrief"  que muestra una lista de funciones del ataque en concreto o "-CheckPrereqs" el cual muestra una lista de rewuisitos para que se pueda ejecutar el ataque (mayormente siempre se cumplen los requisitos ya que son programas que vienen incluidos con windows).<br/>
 Para poder generar logs ejecuta algunos ataque los cuales tendrian que salir en ElasticSIEM, tambien mencionar que en caso de algun error en el proceso se puede verificar utilizando el [video de YT](https://www.youtube.com/watch?v=_xW3fAumh1c) que se utilizo para hacer la parte de Atomic en esta guia.
 
-## 
-
- 
+## Pasos finales y Practica
+Luego de tener ejecutados ambos malwares en los sistemas operativos, siendo BadBlood en Win-Server y algun ataque a eleccion en Atomic Red Team, se va a tener acceso a gran cantidad de logs generados que envia Winlogbeat a ElasticSIEM, con estos se puede hacer el seguimiento para verficar como se desarrolla un malware en un entonrno controlado y cuales son sus paso a paso para lograr infectar un Sistema Operativo.<br/>
+<br/>
+Dentro de la parte **practica**, se puede explorar el sistema Elastica para conocer todas sus funcionos, a modo personal para realizar esta guia le solicite a **<ins>ChatGPT</ins>** que me de desafios en los cuales me indicara que malware ejecutar en AtomicRedTeam y responder una serie de preguntas.<br/>
+<br/>
+<br/>
+<br/>
+Con un sistema SIEM com Elastic se pueden realizar gran cantida de acciones con las cuales se puede aprendender con cada prueba que se hace. Este proyecto no es una solución definitiva, sino un entonrno para practicar y mejorar en el proceso. Si llegaste hasta acá, o si te sirve de inspiración para construir tu propio laboratorio SOC, significa que  valió la pena. ya que lo que me mueve es la curiosidad constante y las ganas de seguir aprendiendo.
 
 
 
