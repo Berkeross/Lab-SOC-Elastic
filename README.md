@@ -173,6 +173,9 @@ Despues de instalar Elastic hay que <ins>configurarlo</ins>. este se encuenctran
     #xpack.security.transport.ssl:
 	  enabled: true
 
+> [!IMPORTANT]
+> Todas las lineas del archivo .yml que contengan <ins>"#"</ins> van a quedar como configuracion prdeterminada. a las lineas a editar se le deve quitar el #.
+
 Estas lineas las vas a configuar copiando estas lineas indicadas del archivo de [Configuración Elastic](Documentación/Configuración-Elastic.txt).<br/>
 <br/>
 Una vez configruado, se utiliza el comando "[sudo systemctl restart elasticsearch]" para resetear el preograma, el cual tarda uno algunos segundos.
@@ -260,6 +263,7 @@ Una vez descargado el archivo .zip se descomprime en la ruta [C:\Program Files\W
   	#password: "changeme"
   	#ssl.verification_mode:
 
+Las lineas a editar o agregar se encuentran en [Configuración Winlogbeat](Documentación/Configuración-Winlogbeat.txt).<br/>
 Una vez editado el archivo ejecutamos Powershell como administrador y para dirigirse a la carpeta donde esta winlogbeat usas:
 
 	cd 'C:\Program Files\Winlogbeat'
