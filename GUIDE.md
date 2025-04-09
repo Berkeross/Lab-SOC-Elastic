@@ -271,9 +271,9 @@ Luego de instalar podemos verificar de dos formas, una es entrando a Services y 
 ### <ins>Coneccion con Elastic</ins>
 Cuando ambos sistemas operativos tengan instalado sysmon y winlogbeat se deven implementar en elasticSIEM.
 <br/>
-Dentro de ElasticSIEM dirigete a [ Menú lateral → Analytics → Discover ] y selecciona "<ins>Add Itegrations</ins>". luego de agregar esta ingregacion vas a ver en la pestaña <ins>discover</ins> sobre la parte superior izquierda una pestaña que muestra los [**Data View**](Capturas/captura 1.png), en esa pestaña busca el recuadro de "<ins>Winlogbeat-*</ins>".<br/>
-$Winlogneat-*$ muestra los log de los sistemas Windows en una sola pestaña, en esta se ve una $TimeLine$ en la cual se va mostrando la cantidad de alertas que muestra winlogbeat a lo largo del tiempo.<br/>
-Por otro lado dirigiendote a [ Menú lateral → Security → Alerts ] donde se encunetra la informacion de estas alertas en las cuales filtra y categoriza las mismas para una mejor deteccion.<br/>
+Dentro de ElasticSIEM dirigete a [ Menú lateral → Analytics → Discover ] y selecciona "<ins>Add Itegrations</ins>". luego de agregar esta ingregacion vas a ver en la pestaña <ins>discover</ins> sobre la parte superior izquierda una pestaña que muestra los **Data View**, en esa pestaña busca el recuadro de "<ins>Winlogbeat-*</ins>".<br/>
+$Winlogneat-*$ muestra los log de los sistemas Windows en una sola pestaña, en esta se ve una [$TimeLine$](Capturas/Captura-Logs-1.png) en la cual se va mostrando la cantidad de [alertas](Capturas/Captura-Logs-2.png) que muestra winlogbeat a lo largo del tiempo.<br/>
+Por otro lado dirigiendote a [ Menú lateral → Security → Alerts ] donde se encunetra la informacion de estas [alertas](Capturas/Captura-Alertas-1.png) en las cuales [filtra y categoriza](Capturas/Captura-Alertas-2.png) las mismas para una mejor deteccion.<br/>
 Contando con estas dos funciones mas otras que ya vienen integradas en el paquete ElasticSIEM es posible hacer pruebas de ataques simulados.
 
 ## Simulación de ataques
