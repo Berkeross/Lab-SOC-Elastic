@@ -188,6 +188,8 @@ User: elastic<br/>
 Password : TU_CONTRASEÑA_ELASTIC<br/>
 <br/>
 La pagina te mostrara tu nombre de sistema y algunos datos que indican que esta en funcionamiento.<br/>
+
+### <ins>Kibana</ins>
 Una vez terminada la instalacion de elastic descarmamos e instalamos Kibana con el comando:
 
 	wget https://artifacts.elastic.co/downloads/kibana/kibana-8.9.0-amd64.deb
@@ -264,7 +266,7 @@ Una vez descargado el archivo .zip se descomprime en la ruta [C:\Program Files\W
   	#ssl.verification_mode:
 
 Las lineas a editar o agregar se encuentran en [Configuración Winlogbeat](Documentación/Configuración-Winlogbeat.txt).<br/>
-Una vez editado el archivo ejecutamos Powershell como administrador y para dirigirse a la carpeta donde esta winlogbeat usas:
+Una vez editado el archivo ejecutamos Powershell como administrador y para dirigirse a la carpeta donde esta winlogbeat utilizas el comando:
 
 	cd 'C:\Program Files\Winlogbeat'
 
@@ -276,4 +278,41 @@ Ya en el directorio ejecutas:
 Luego de instalar podemos verificar de dos formas, una es entrando a Services y buscando el programa, y la otra opcion es ejecutar en pshell como admin. este comando: ".\winlogbeat.exe setup -e" el cual muestra los logs recogidos por el programa.
 
 ### <ins>Coneccion con Elastic</ins>
-a
+Cuando ambos sistemas operativos tengan instalado sysmon y winlogbeat se deven implementar en elasticSIEM.
+<br/>
+Dentro de ElasticSIEM dirigete a [ Menú lateral → Analytics → Discover ] y selecciona "<ins>Add Itegrations</ins>". luego de agregar esta ingregacion vas a ver en la pestaña <ins>discover</ins> sobre la parte superior izquierda una pestaña que muestra los **Data View**, en esa pestaña busca el recuadro de "<ins>Winlogbeat-*</ins>".<br/>
+$Winlogneat-*$ muestra los log de los sistemas Windows en una sola pestaña, en esta se ve una $TimeLine$ en la cual se va mostrando la cantidad de alertas que muestra winlogbeat a lo largo del tiempo.<br/>
+Por otro lado dirigiendote a [ Menú lateral → Security → Alerts ] donde se encunetra la informacion de estas alertas en las cuales filtra y categoriza las mismas para una mejor deteccion.<br/>
+Contando con estas dos funciones mas otras que ya vienen integradas en el paquete ElasticSIEM es posible hacer pruebas de ataques simulados.
+
+## Simulación de ataques
+
+Teniendo un Entorno SIEM funcional es momento de comprometerlo para comprobar sus funcionalidades. Para esto se va a utilizar <ins>**BadBlood**</ins> para comprometer Windows Server y </ins>**Atomic Red Team**</ins> para comprometer Windows 10.
+<br/>
+### <ins>BadBlood<ins>
+Badblood es un  malware sencillo de descargar e instalar, para realizar la descarga ingresa al link de [GitHub](https://github.com/davidprowe/BadBlood), descargue el .zip y extraiga el contenido en el lugar.<br/>
+Una vez extraigo ingrese como administrador a powershell y ejecute los siguientes comandos:
+
+ 	cd .\Downloads\BadBlood-Master\BadBlood-Master\
+
+Luego de ingresar a la carpeta del malware, este se ejecuta con:
+
+	.\invoke-BadBlood.ps1
+
+Con esto aparecera un pequeño parrafo explicativo guia para ejecutarlo. Una vez ejecutado deja que la magia suceda (esto puede tomar varios minutos).<br/>
+Una vez terminado le proceso en ElasticSIEM en la pestaña de $Discover$ deverian haber ingresado varios log y eventos relacionados con la creacion de usuarios roles y eventos en Win-Server.
+
+### <ins>Atomic Red Team<ins>
+Para realizar la descarga de ART ingrese al link de [Git](https://git-scm.com/download/win) [GitHub](https://github.com/redcanaryco/atomic-red-team) y descargue el .zip. Antes de extraerlo es necesario desdactivar $Windows Defender$ para que no bloquee los archivos ni los ataques, para esto se debe ejecutar el siguente comando utilizando powershell como administrador.
+
+	Set-MpPreference -DisableRealtimeMonitoring $true
+
+Una vez desactivado se debe extraer el archivo .zip manuelamente en [C:\AtomicRedTeam], al finalizar la extracción se debe cambir el nombre de la carpeta "Atomic-Red_team_master" a "AtomicRedTeam" para que los comandos funcionen correctamente.<br/>
+Luego con Powershell dirijase a la carpeta utilizando el comando [cd C:\AtomicRedTeam], alli ejecute el comando:
+
+	Install-Module -Name Invoke-AtomicRedTeam -Force
+	Import-Module Invoke-AtomicRedTeam
+
+
+	Invoke-AtomicTest T1059.001 -TestNumbers 1
+
