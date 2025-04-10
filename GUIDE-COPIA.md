@@ -191,7 +191,7 @@ xpack.security.transport.ssl.enabled: true
 > [!IMPORTANT]  
 > Todas las líneas que contienen `#` están comentadas. Quitar el `#` en las líneas que quieras configurar.
 
-Estas configuraciones se copian del archivo `Configuración-Elastic.txt`.
+Estas configuraciones se copian del archivo [Documentación-Elastic](Documentación/Documentación-Elastic.txt).
 
 Una vez configurado, reiniciamos el servicio:
 
@@ -359,7 +359,7 @@ Antes de extraerlos se debe crear una carpeta con nombre "AtomicRedTeam" en la c
 	    ├    └── atomic-red-team-master\
 	    ├    	├── .devcontainer\
 	    ├    	├── atomics\
-     	    ├		└── ...\	
+        ├		└── ...\	
 	    └── invoke-atomicredteam-master\
 	         	└── invoke-atomicredteam-master\
 	         		├── .git\
