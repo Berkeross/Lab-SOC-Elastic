@@ -1,17 +1,17 @@
 # GUIDE
-En este repositorio voy a explicar paso a paso como descargar, instalar e implementar estas maquinas virtuales y conectarlas entre si para tener un laboratorio SOC/SIEM.
+En este repositorio voy a explicar paso a paso como descargar, instalar e implementar estas máquinas virtuales y conectarlas entre si para tener un laboratorio SOC/SIEM.
 
 ### REQUISITOS DE SISTEMA
-Dentro de VirtualBox Utilice 4 maquinas viertuales abiertas simultaneamente de las cuales 2 fueron maquinas windows.
+Dentro de VirtualBox Utilice 4 maquinas virtuales abiertas simultaneamente, de las cuales 2 fueron maquinas Windows.
 Teniendo en cuentas esto utilice aproximadamente:
 * 8GB de Memoria RAM (2GB para cada maquina).
 * 6 hilos(GPU), 2 hilos para las maquinas win ademas 1 hilo para Ubuntu y 1 mas para PFsense.
 * 50GB de disco para Win-Server, 50GB para Win-10, 10GB para PFsense y 50GB para Linux/Ubuntu.
 > [!NOTE]
-> Cabe aclarar que no es estricto, si es necesario agregarle mas y disninuirle la canttidad, el funcionamiento va a ser el mismo.
+> Cabe aclarar que no es estricto, si es necesario agregarle mas y disminuirle la cantidad, el funcionamiento va a ser el mismo.
 
 ### MAQUINAS
-Para virtualizar estas 4 maquinas virtuales se requiere de un virtualizador, en esta guia voy a utilizar **VirtualBox**. pero se puede usar calquier otro.
+Para virtualizar estas 4 maquinas virtuales se requiere de un virtualizador, en esta guia se utiliza **VirtualBox**. pero se puede usar cualquier otro programa con las lismas carateristicas.
 Se van a ejecutar 4 maquinas virtuales en total utilizando, estas van a ser:
 - Una maquina virtual con [PFsese](https://www.pfsense.org/download/)
 - Una maquina virtual con [Windows Server 2022](https://www.microsoft.com/es-es/evalcenter/download-windows-server-2022)
@@ -21,7 +21,7 @@ Se van a ejecutar 4 maquinas virtuales en total utilizando, estas van a ser:
 ### RED
 Dentro de VirtualBox utilizaremos 2 tipos de redes:
 * Una es la red WAN para dar internet.
-* Y la red lan que viene por defcto en VirtualBox.
+* Y la red LAN que viene por defecto en VirtualBox.
 
 ## INSTALACION Y CONFIGURACION DE MAQUINAS
 
