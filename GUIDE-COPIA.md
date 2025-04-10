@@ -370,10 +370,10 @@ Como se puede ver, ambos archivos al extraerlos crean una carpeta del mismo nomb
 
   	C:\AtomicRedTeam\
 	    ├── atomic-red-team-master\
-     	    ├	 └── .devcontainer\
+	    ├ 	 └── .devcontainer\
 	    ├	 └── ...
 	    ├── atomics\
-     	    ├	 └── indexes\
+	    ├	 └── indexes\
 	    ├	 └── ...
 	    └── invoke-atomicredteam-master\
 	         └── .git\
